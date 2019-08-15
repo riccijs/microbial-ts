@@ -1,5 +1,5 @@
 {
-  "name": "microbial",
+  "name": "microbial-ts",
   "version": "0.1.0",
   "description": "Microservices frame work for NodeJS, Express, MongoDB, and Socket.io",
   "main": "index.ts",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/riccijs/microbial.git"
+    "url": "git+ssh://git@github.com/riccijs/microbial-ts.git"
   },
   "keywords": [
     "Framework",
@@ -24,9 +24,9 @@
   "author": "Bryan Ricci",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/riccijs/microbial/issues"
+    "url": "https://github.com/riccijs/microbial-ts/issues"
   },
-  "homepage": "https://github.com/riccijs/microbial#readme",
+  "homepage": "https://github.com/riccijs/microbial-ts#readme",
   "dependencies": {
     "acl": "^0.4.9",
     "body-parser": "^1.15.2",
