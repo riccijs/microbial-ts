@@ -1,6 +1,6 @@
 {
   "name": "microbial-ts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Microservices frame work for NodeJS, Express, MongoDB, and Socket.io",
   "main": "index.ts",
   "scripts": {
@@ -79,5 +79,7 @@
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
   },
-  "files": ["dist/**/*"]
+  "files": [
+    "dist/**/*"
+  ]
 }
