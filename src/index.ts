@@ -1,8 +1,8 @@
-import conf from './src/conf'
-import express from './src/lib/express'
-import mongoose from './src/lib/mongoose'
+import conf from './conf'
+import express from './lib/express'
+import mongoose from './lib/mongoose'
 import chalk from 'chalk'
-export { default } from './src/lib/logger'
+export { default } from './lib/logger'
 
 /************************************************
  * Connect mongoose

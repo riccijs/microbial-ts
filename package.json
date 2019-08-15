@@ -4,7 +4,8 @@
   "description": "Microservices frame work for NodeJS, Express, MongoDB, and Socket.io",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -77,5 +78,6 @@
     "ts-node": "^8.3.0",
     "tslint": "^5.18.0",
     "typescript": "^3.5.3"
-  }
+  },
+  "files": ["dist/**/*"]
 }
