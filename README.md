@@ -190,7 +190,7 @@ export default UserController
 
 ./src/modules/user/routes.ts
 ```javascript
-import UserController from './controller.ts`
+import UserController from './controller.ts'
 
 module.exports = app => {
   app.route('/api/user/read').get(
