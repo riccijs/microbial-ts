@@ -1,4 +1,4 @@
-import conf from '../conf'
+import conf from '../conf/conf'
 import express from 'express'
 import morgan from 'morgan'
 import logger from './logger'
@@ -29,19 +29,11 @@ function initSSLValidation() {
   const certificate = fs.existsSync(path.resolve(conf.secure.certificate))
 
   if (!privateKey || !certificate) {
-    console.log(chalk.red('+ Error: Certificate file or key file is missing, falling back to non-SSL mode'))
-    console.log()
+    console.log('---------------------------------------------------------')
+    console.log(chalk.yellow('+ Warning: Certificate file or key file is missing, falling back to non-SSL mode'))
+    console.log(chalk.yellow(`+ MISSING: ${conf.secure.privateKey} AND/OR ${conf.secure.certificate}`))
     conf.secure.ssl = false
   }
-}
-
-/*********************************************
- * Configure the modules ACL policies
-**********************************************/
-function initModulesServerPolicies() {
-  conf.assets.policies.forEach(policyPath => {
-    require(path.join(process.cwd(), policyPath)).invokeRolesPolicies()
-  })
 }
 
 /*********************************************
@@ -94,7 +86,7 @@ function initLocalVariables(app) {
 
   //CORS middleware
   const allowCrossDomain = (req, res, next) => {
-    res.header('Access-Control-Allow-Origin', process.env.APP_HOST)
+    res.header('Access-Control-Allow-Origin', '*')
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
     res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
     next()
@@ -119,13 +111,8 @@ function initMiddleware(app) {
     app.use(morgan(logger.getLogFormat(), logger.getMorganOptions()))
   }
 
-  // Environment dependent middleware
-  if (process.env.NODE_ENV === 'development') {
-    // Disable views cache
-    app.set('view cache', false)
-  } else if (isProduction) {
-    app.locals.cache = 'memory'
-  }
+  // Caching
+  app.locals.cache = 'memory'
 
   // Request body parsing middleware should be above methodOverride
   app.engine('html', require('ejs').renderFile)
@@ -150,11 +137,18 @@ function initMiddleware(app) {
  * Invoke modules server configuration
  *********************************************/
 const initModulesConfiguration = app => {
+  console.log('---------------------------------------------------------')
   conf.assets.routes.forEach(routePath => {
+    console.log(chalk.green(`+ ADDED - Routes: ${routePath}`))
     require(path.join(process.cwd(), routePath))(app)
   })
   conf.assets.express.forEach(expressPath => {
+    console.log(chalk.green(`+ ADDED - Express: ${expressPath}`))
     require(path.join(process.cwd(), expressPath))(app)
+  })
+  conf.assets.policies.forEach(policyPath => {
+    console.log(chalk.green(`+ ADDED - Policy: ${policyPath}`))
+    require(path.join(process.cwd(), policyPath)).invokeRolesPolicies()
   })
 }
 
@@ -179,12 +173,11 @@ function initHelmetHeaders(app) {
 /*********************************************
  * Initialize the Express application
  *********************************************/
-export default (db) => {
+export default db => {
   const app = express()
   const sessionConfig = initSession(app, db)
   
   initSSLValidation()
-  initModulesServerPolicies()
   initLocalVariables(app)
   initMiddleware(app)
   initHelmetHeaders(app)

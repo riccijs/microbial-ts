@@ -1,4 +1,4 @@
-import conf from '../conf'
+import conf from '../conf/conf'
 import chalk from 'chalk'
 import path from 'path'
 import mongoose from 'mongoose'

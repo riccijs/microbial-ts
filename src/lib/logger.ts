@@ -1,4 +1,4 @@
-import conf from '../conf'
+import conf from '../conf/conf'
 import chalk from 'chalk'
 import fs from 'fs'
 import winston from 'winston'

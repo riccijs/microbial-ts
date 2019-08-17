@@ -1,8 +1,9 @@
-import conf from '../conf'
+import conf from '../conf/conf'
 import path from 'path'
 import http from 'http'
 import socketio from 'socket.io'
 import logger from './logger'
+import chalk from 'chalk'
 
 /************************************************
  * Array of connected clients
@@ -31,8 +32,9 @@ export default (app, sessionConfig)  => {
     logger.debug(`SOCKET CONNECTION: ${socket.id}`)
     console.log('SOCKET CLIENTS', clients)
 
-    conf.assets.sockets.forEach((socketConfiguration) => {
-      require(path.resolve(socketConfiguration))(io, socket, clients)
+    conf.assets.sockets.forEach((socketPath) => {
+      console.log(chalk.green(`+ ADDED - Sockets: ${socketPath}`))
+      require(path.resolve(socketPath))(io, socket, clients)
     })
     
     socket.on('disconnect', () => { 
