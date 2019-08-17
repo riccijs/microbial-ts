@@ -30,13 +30,13 @@ npm install microbial-ts --save
 Javascript:
 
 ```javascript
-const listen = require('microbial-ts')
+const mts = require('microbial-ts')
 ```
 
 ES6 and above:
 
 ```javascript
-import listen from 'microbial-ts'
+import mts from 'microbial-ts'
 ```
 
 
