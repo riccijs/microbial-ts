@@ -1,6 +1,6 @@
 {
   "name": "microbial-ts",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Microservices frame work for NodeJS, Express, MongoDB, and Socket.io",
   "main": "dist/index.js",
   "scripts": {
