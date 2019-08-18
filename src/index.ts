@@ -2,6 +2,10 @@ import conf from './conf/conf'
 import express from './lib/express'
 import mongoose from './lib/mongoose'
 import chalk from 'chalk'
+import logger from './lib/logger'
+
+export { parseError } from './utils'
+export const { debug } = logger
 
 /************************************************
  * Init application
