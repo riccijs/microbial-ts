@@ -79,7 +79,7 @@ package.json
     "start-local": "nodemon --config \"./nodemon.json\"/",
   },
   "dependencies": {
-    "microbial-ts": "^0.2.1"
+    "microbial-ts": "^0.2.2"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",

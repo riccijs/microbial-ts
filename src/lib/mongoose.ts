@@ -9,7 +9,9 @@ function mongooseConf() {}
  * Load the mongoose models
  ************************************************/
 mongooseConf.loadModels = (callback?) => {
+  console.log('---------------------------------------------------------')
   conf.assets.models.forEach(modelPath => {
+    console.log(chalk.green(`+ ADDED - Mongoose Model: ${modelPath}`))
     require(path.join(process.cwd(), modelPath))
   })
 
