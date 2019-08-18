@@ -150,5 +150,5 @@ npm-shrinkwrap.json
 # ENV Prod
 .env.production
 
-.package-lock.json
+package-lock.json
 .isomorphic-loader-config.json
