@@ -24,8 +24,7 @@ mongooseConf.loadModels = (callback?) => {
  ************************************************/
 mongooseConf.connect = async () => {
   try {
-    const db = await mongoose.connect(conf.db.uri, conf.db.options)
-    return db
+    await mongoose.connect(conf.db.uri, conf.db.options)
   } 
   catch(err) {
     console.error(chalk.red('Could not connect to MongoDB!'))
@@ -36,8 +35,8 @@ mongooseConf.connect = async () => {
 /************************************************
  * Handle mongoose disconnect
  ************************************************/
-mongooseConf.disconnect = (cb) => {
-  mongoose.disconnect((err) => {
+mongooseConf.disconnect = cb => {
+  mongoose.disconnect(err => {
     console.info(chalk.yellow('Disconnected from MongoDB.'))
     cb(err)
   })

@@ -26,5 +26,5 @@ function initApp(app) {
  ************************************************/
 export default function mts() {
   mongoose.loadModels()
-  mongoose.connect().then(db => { initApp(express(db)) })
+  mongoose.connect().then(() => { initApp(express()) })
 }
