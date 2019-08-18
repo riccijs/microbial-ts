@@ -3,21 +3,15 @@ import express from 'express'
 import morgan from 'morgan'
 import logger from './logger'
 import bodyParser from 'body-parser'
-import session from 'express-session'
 import compress from 'compression'
 import methodOverride from 'method-override'
 import cookieParser from 'cookie-parser'
 import helmet from 'helmet'
 import flash from 'connect-flash'
 import path from 'path'
-import _ from 'lodash'
 import socketio from './socket.io'
-import lusca from 'lusca'
 import fs from 'fs'
 import chalk from 'chalk'
-
-const MongoStore = require('connect-mongo')(session)
-const isProduction = process.env.NODE_ENV === 'production'
 
 /*********************************************
  * Validate certs exit (if secure.ssl)
@@ -36,30 +30,6 @@ function initSSLValidation() {
   }
 }
 
-/*********************************************
- * Initialize the session
- *********************************************/
-function initSession(app, db) {
-  const sessionConfig = session({
-    saveUninitialized: true,
-    resave: true,
-    secret: conf.sessionSecret,
-    cookie: {
-      maxAge: conf.sessionCookie.maxAge,
-      httpOnly: conf.sessionCookie.httpOnly,
-      secure: conf.sessionCookie.secure
-    },
-    name: conf.sessionKey,
-    store: new MongoStore({
-      mongooseConnection: db.connection,
-      collection: conf.sessionCollection
-    })
-  })
-  app.use(sessionConfig)
-  app.use(lusca(conf.csrf))
-
-  return sessionConfig
-}
 
 /*********************************************
  * Initialize local variables
@@ -173,15 +143,13 @@ function initHelmetHeaders(app) {
 /*********************************************
  * Initialize the Express application
  *********************************************/
-export default db => {
-  const app = express()
-  const sessionConfig = initSession(app, db)
-  
+export default () => {
+  const app = express()  
   initSSLValidation()
   initLocalVariables(app)
   initMiddleware(app)
   initHelmetHeaders(app)
   initModulesConfiguration(app)
 
-  return socketio(app, sessionConfig)
+  return socketio(app)
 }
